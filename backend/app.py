@@ -5,7 +5,7 @@
 ====================================================
 """
 
-from flask import Flask, request, jsonify
+"""from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -28,7 +28,7 @@ db = SQLAlchemy(app)
 # ─── MODELS ──────────────────────────────────────────────────────────────────
 
 class User(db.Model):
-    """Retail / HNI Investor"""
+    \"\"\"Retail / HNI Investor\"\"\"
     __tablename__ = 'users'
     id           = db.Column(db.Integer, primary_key=True)
     first_name   = db.Column(db.String(50), nullable=False)
@@ -57,7 +57,7 @@ class User(db.Model):
 
 
 class Company(db.Model):
-    """Bond Issuer / Company"""
+    \"\"\"Bond Issuer / Company\"\"\"
     __tablename__ = 'companies'
     id           = db.Column(db.Integer, primary_key=True)
     name         = db.Column(db.String(150), nullable=False)
@@ -81,7 +81,7 @@ class Company(db.Model):
 
 
 class Bond(db.Model):
-    """Bond Listing"""
+    \"\"\"Bond Listing\"\"\"
     __tablename__ = 'bonds'
     id            = db.Column(db.Integer, primary_key=True)
     company_id    = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=True)
@@ -114,7 +114,8 @@ class Bond(db.Model):
 
 
 class Portfolio(db.Model):
-    """User's Bond Holdings"""
+    \"\"\"User's Bond Holdings\"
+    \"\"
     __tablename__ = 'portfolio'
     id            = db.Column(db.Integer, primary_key=True)
     user_id       = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -507,7 +508,7 @@ def calc_ytm():
 # ─── SEED DATA ────────────────────────────────────────────────────────────────
 
 def seed_data():
-    """Seed some sample bonds if DB is empty"""
+    \"\"\"Seed some sample bonds if DB is empty\"\"\"
     if Bond.query.count() == 0:
         sample_bonds = [
             Bond(issuer_name='Govt. of India 2034', isin='IN0020190104', bond_type='G-Sec',
@@ -535,7 +536,7 @@ def seed_data():
         for b in sample_bonds:
             db.session.add(b)
         db.session.commit()
-        print("✅ Sample bonds seeded.")
+        
 
 
 # ─── ENTRY POINT ─────────────────────────────────────────────────────────────
@@ -544,5 +545,49 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)"""
+
+from flask import Flask, jsonify
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+import os
+
+app = Flask(__name__)
+CORS(app)
+
+
+uri = os.environ.get('DATABASE_URL', 'sqlite:///bondcentral.db')
+
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'bondcentral_dev_secret_2025')
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+@app.route("/api/bonds")
+def get_bonds():
+    return jsonify({
+        "bonds": [
+            {
+                "issuer_name": "HDFC Bank",
+                "bond_type": "Corporate",
+                "credit_rating": "AAA",
+                "coupon_rate": 7.5,
+                "maturity_date": "2028-12-31",
+                "min_investment": 10000,
+                "exchange": "NSE"
+            }
+        ]
+    })
+
+
+with app.app_context():
+    db.create_all()
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
