@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bond Calculator — Bond Central</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-brand"><a href="index.html" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:0.5rem;"><span class="logo-icon">⬡</span> Bond<strong>Central</strong></a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="bonds.html">Bonds</a></li>
+    <li><a href="calculator.html" class="active">Calculator</a></li>
+    <li><a href="company.html">For Companies</a></li>
+    <li><a href="login.html" class="btn-outline">Login</a></li>
+  </ul>
+</nav>
+
+<div class="calc-page">
+  <h1>Bond Calculator</h1>
+  <p>Calculate yield, bond price, maturity value, and total returns before you invest</p>
+
+  <div class="calc-grid">
+
+    <!-- Yield to Maturity -->
+    <div class="calc-card">
+      <h3>📈 Yield to Maturity (YTM)</h3>
+      <div class="form-group">
+        <label>Face Value (₹)</label>
+        <input type="number" id="ytm-face" value="10000" oninput="calcYTM()"/>
+      </div>
+      <div class="form-group">
+        <label>Coupon Rate (%)</label>
+        <input type="number" id="ytm-coupon" value="9.5" step="0.1" oninput="calcYTM()"/>
+      </div>
+      <div class="form-group">
+        <label>Current Market Price (₹)</label>
+        <input type="number" id="ytm-price" value="10200" oninput="calcYTM()"/>
+      </div>
+      <div class="form-group">
+        <label>Years to Maturity</label>
+        <input type="number" id="ytm-years" value="5" oninput="calcYTM()"/>
+      </div>
+      <div class="calc-result" id="ytm-result">
+        <div class="calc-result-row"><span>Annual Coupon</span><span id="ytm-annual-coupon">₹950</span></div>
+        <div class="calc-result-row"><span>Total Coupons</span><span id="ytm-total-coupons">₹4,750</span></div>
+        <div class="calc-result-row"><span>Capital Gain/Loss</span><span id="ytm-cg">-₹200</span></div>
+        <div class="calc-result-row highlight"><span>Yield to Maturity</span><span id="ytm-val">9.12%</span></div>
+      </div>
+    </div>
+
+    <!-- Bond Price Calculator -->
+    <div class="calc-card">
+      <h3>💰 Bond Price Calculator</h3>
+      <div class="form-group">
+        <label>Face Value (₹)</label>
+        <input type="number" id="bp-face" value="10000" oninput="calcBondPrice()"/>
+      </div>
+      <div class="form-group">
+        <label>Coupon Rate (%)</label>
+        <input type="number" id="bp-coupon" value="9.5" step="0.1" oninput="calcBondPrice()"/>
+      </div>
+      <div class="form-group">
+        <label>Required Yield / Market Rate (%)</label>
+        <input type="number" id="bp-yield" value="8.5" step="0.1" oninput="calcBondPrice()"/>
+      </div>
+      <div class="form-group">
+        <label>Years to Maturity</label>
+        <input type="number" id="bp-years" value="5" oninput="calcBondPrice()"/>
+      </div>
+      <div class="calc-result" id="bp-result">
+        <div class="calc-result-row"><span>Present Value of Coupons</span><span id="bp-pv-coupons">₹0</span></div>
+        <div class="calc-result-row"><span>Present Value of Face</span><span id="bp-pv-face">₹0</span></div>
+        <div class="calc-result-row highlight"><span>Fair Bond Price</span><span id="bp-price">₹0</span></div>
+        <div class="calc-result-row"><span>Premium/Discount</span><span id="bp-diff">₹0</span></div>
+      </div>
+    </div>
+
+    <!-- Returns Calculator -->
+    <div class="calc-card">
+      <h3>📊 Total Returns Calculator</h3>
+      <div class="form-group">
+        <label>Investment Amount (₹)</label>
+        <input type="number" id="ret-invest" value="100000" oninput="calcReturns()"/>
+      </div>
+      <div class="form-group">
+        <label>Coupon Rate (% per year)</label>
+        <input type="number" id="ret-rate" value="9.25" step="0.1" oninput="calcReturns()"/>
+      </div>
+      <div class="form-group">
+        <label>Tenure (Years)</label>
+        <input type="number" id="ret-years" value="5" oninput="calcReturns()"/>
+      </div>
+      <div class="form-group">
+        <label>Payment Frequency</label>
+        <select id="ret-freq" onchange="calcReturns()">
+          <option value="1">Annual</option>
+          <option value="2" selected>Semi-Annual</option>
+          <option value="4">Quarterly</option>
+          <option value="12">Monthly</option>
+        </select>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-row"><span>Per Payment</span><span id="ret-per-pay">₹0</span></div>
+        <div class="calc-result-row"><span>Total Coupon Income</span><span id="ret-total-coupon">₹0</span></div>
+        <div class="calc-result-row"><span>Principal Returned</span><span id="ret-principal">₹0</span></div>
+        <div class="calc-result-row highlight"><span>Total Maturity Value</span><span id="ret-total">₹0</span></div>
+      </div>
+    </div>
+
+    <!-- Tax Calculator -->
+    <div class="calc-card">
+      <h3>🧾 Post-Tax Returns</h3>
+      <div class="form-group">
+        <label>Gross Coupon Income (₹)</label>
+        <input type="number" id="tax-gross" value="46250" oninput="calcTax()"/>
+      </div>
+      <div class="form-group">
+        <label>Your Tax Slab (%)</label>
+        <select id="tax-slab" onchange="calcTax()">
+          <option value="0">0% (Exempt)</option>
+          <option value="5">5%</option>
+          <option value="10">10%</option>
+          <option value="20">20%</option>
+          <option value="30" selected>30%</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>TDS Rate (%)</label>
+        <input type="number" id="tax-tds" value="10" oninput="calcTax()"/>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-row"><span>TDS Deducted</span><span id="tax-tds-val">₹0</span></div>
+        <div class="calc-result-row"><span>Additional Tax</span><span id="tax-extra">₹0</span></div>
+        <div class="calc-result-row"><span>Total Tax</span><span id="tax-total">₹0</span></div>
+        <div class="calc-result-row highlight"><span>Net Post-Tax Income</span><span id="tax-net">₹0</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer" style="margin-top:3rem;">
+  <div class="footer-bottom">© 2025 Bond Central | Educational Project | OBPP Association of India</div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+function pct(n) { return n.toFixed(2) + '%'; }
+
+function calcYTM() {
+  const F = +document.getElementById('ytm-face').value || 10000;
+  const C = F * (+document.getElementById('ytm-coupon').value || 9.5) / 100;
+  const P = +document.getElementById('ytm-price').value || 10200;
+  const n = +document.getElementById('ytm-years').value || 5;
+  const cg = F - P;
+  const ytm = ((C + cg/n) / ((F+P)/2)) * 100;
+  document.getElementById('ytm-annual-coupon').textContent = fmt(C);
+  document.getElementById('ytm-total-coupons').textContent = fmt(C*n);
+  document.getElementById('ytm-cg').textContent = fmt(cg);
+  document.getElementById('ytm-val').textContent = pct(ytm);
+}
+
+function calcBondPrice() {
+  const F = +document.getElementById('bp-face').value || 10000;
+  const C = F * (+document.getElementById('bp-coupon').value || 9.5) / 100;
+  const r = (+document.getElementById('bp-yield').value || 8.5) / 100;
+  const n = +document.getElementById('bp-years').value || 5;
+  let pvCoupons = 0;
+  for (let i=1; i<=n; i++) pvCoupons += C / Math.pow(1+r, i);
+  const pvFace = F / Math.pow(1+r, n);
+  const price = pvCoupons + pvFace;
+  document.getElementById('bp-pv-coupons').textContent = fmt(pvCoupons);
+  document.getElementById('bp-pv-face').textContent = fmt(pvFace);
+  document.getElementById('bp-price').textContent = fmt(price);
+  document.getElementById('bp-diff').textContent = fmt(price - F);
+}
+
+function calcReturns() {
+  const inv = +document.getElementById('ret-invest').value || 100000;
+  const rate = (+document.getElementById('ret-rate').value || 9.25) / 100;
+  const years = +document.getElementById('ret-years').value || 5;
+  const freq = +document.getElementById('ret-freq').value || 2;
+  const perPay = inv * rate / freq;
+  const totalCoupons = perPay * freq * years;
+  document.getElementById('ret-per-pay').textContent = fmt(perPay);
+  document.getElementById('ret-total-coupon').textContent = fmt(totalCoupons);
+  document.getElementById('ret-principal').textContent = fmt(inv);
+  document.getElementById('ret-total').textContent = fmt(inv + totalCoupons);
+}
+
+function calcTax() {
+  const gross = +document.getElementById('tax-gross').value || 46250;
+  const slab = +document.getElementById('tax-slab').value / 100;
+  const tdsRate = +document.getElementById('tax-tds').value / 100;
+  const tds = gross * tdsRate;
+  const totalTax = gross * slab;
+  const extra = Math.max(0, totalTax - tds);
+  document.getElementById('tax-tds-val').textContent = fmt(tds);
+  document.getElementById('tax-extra').textContent = fmt(extra);
+  document.getElementById('tax-total').textContent = fmt(totalTax);
+  document.getElementById('tax-net').textContent = fmt(gross - totalTax);
+}
+
+// Run all on load
+calcYTM(); calcBondPrice(); calcReturns(); calcTax();
+</script>
+</body>
+</html>

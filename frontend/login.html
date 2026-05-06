@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — Bond Central</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-brand"><a href="index.html" style="color:inherit;text-decoration:none;display:flex;align-items:center;gap:0.5rem;"><span class="logo-icon">⬡</span> Bond<strong>Central</strong></a></div>
+</nav>
+
+<div class="form-page">
+  <div class="form-card">
+    <h2>Welcome Back</h2>
+    <p class="form-sub">Login to your Bond Central account</p>
+
+    <div class="role-selector">
+      <button class="role-btn active" onclick="setRole(this,'investor')">👤 Investor</button>
+      <button class="role-btn" onclick="setRole(this,'company')">🏢 Company</button>
+      <button class="role-btn" onclick="setRole(this,'admin')">🛡 Admin</button>
+    </div>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required/>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1rem;">
+        <a href="#" style="font-size:0.82rem;color:var(--gold);text-decoration:none;">Forgot Password?</a>
+      </div>
+      <button type="submit" class="btn-primary form-submit">Login</button>
+    </form>
+
+    <div class="form-link">
+      Don't have an account? <a href="register.html">Create one</a>
+    </div>
+
+    <div id="login-msg" style="margin-top:1rem;text-align:center;font-size:0.85rem;"></div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script>
+let currentRole = 'investor';
+function setRole(btn, role) {
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentRole = role;
+}
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const pwd = document.getElementById('password').value;
+  const msg = document.getElementById('login-msg');
+  msg.style.color = 'var(--gold)';
+  msg.textContent = 'Logging in...';
+  setTimeout(() => {
+    // Simulate auth — in real app this calls the Python backend API
+    localStorage.setItem('bc_user', JSON.stringify({email, role: currentRole}));
+    msg.style.color = 'var(--green)';
+    msg.textContent = '✅ Login successful! Redirecting...';
+    setTimeout(() => {
+      if (currentRole === 'company') window.location = 'company-dashboard.html';
+      else if (currentRole === 'admin') window.location = 'admin.html';
+      else window.location = 'dashboard.html';
+    }, 1000);
+  }, 1200);
+}
+</script>
+</body>
+</html>

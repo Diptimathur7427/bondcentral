@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bond Central — India's Bond Market Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="logo-icon">⬡</span>
+    <span class="logo-text">Bond<strong>Central</strong></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="bonds.html">Bonds</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="company.html">For Companies</a></li>
+    <li><a href="login.html" class="btn-outline">Login</a></li>
+    <li><a href="register.html" class="btn-primary">Register</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🇮🇳 SEBI Regulated Platform</div>
+    <h1>India's Central Hub<br/>for <span class="accent">Bond Markets</span></h1>
+    <p>Discover, compare, and invest in corporate bonds, government securities, and fixed-income instruments — all in one place.</p>
+    <div class="hero-actions">
+      <a href="bonds.html" class="btn-primary large">Explore Bonds</a>
+      <a href="register.html" class="btn-ghost large">Start Investing</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">5,200+</span><span class="stat-label">Bonds Listed</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">₹2.4L Cr</span><span class="stat-label">Market Volume</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">327%</span><span class="stat-label">Growth YoY</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="bond-card-float">
+      <div class="bond-card-mini">
+        <span class="bond-type-tag">Corporate Bond</span>
+        <div class="bond-name">HDFC Bank Ltd.</div>
+        <div class="bond-yield">9.25% <span>p.a.</span></div>
+        <div class="bond-rating">AAA ★★★</div>
+      </div>
+      <div class="bond-card-mini delay1">
+        <span class="bond-type-tag gov">G-Sec</span>
+        <div class="bond-name">Govt. of India 2034</div>
+        <div class="bond-yield">7.18% <span>p.a.</span></div>
+        <div class="bond-rating">Sovereign</div>
+      </div>
+      <div class="bond-card-mini delay2">
+        <span class="bond-type-tag psu">PSU Bond</span>
+        <div class="bond-name">NTPC Limited</div>
+        <div class="bond-yield">8.75% <span>p.a.</span></div>
+        <div class="bond-rating">AAA ★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOND TYPES -->
+<section class="section bond-types">
+  <div class="section-header">
+    <h2>Types of Bonds Available</h2>
+    <p>Explore all categories of fixed-income instruments</p>
+  </div>
+  <div class="types-grid">
+    <div class="type-card" onclick="window.location='bonds.html?type=government'">
+      <div class="type-icon">🏛️</div>
+      <h3>Government Bonds</h3>
+      <p>Central & State Govt securities with sovereign guarantee</p>
+      <span class="type-yield">Yield: 7.0–7.5%</span>
+    </div>
+    <div class="type-card" onclick="window.location='bonds.html?type=corporate'">
+      <div class="type-icon">🏢</div>
+      <h3>Corporate Bonds</h3>
+      <p>Issued by companies — higher returns with rated risk</p>
+      <span class="type-yield">Yield: 8.0–12%</span>
+    </div>
+    <div class="type-card" onclick="window.location='bonds.html?type=psu'">
+      <div class="type-icon">⚡</div>
+      <h3>PSU Bonds</h3>
+      <p>Public sector undertakings — semi-sovereign, safe returns</p>
+      <span class="type-yield">Yield: 7.5–9%</span>
+    </div>
+    <div class="type-card" onclick="window.location='bonds.html?type=zerocoupon'">
+      <div class="type-icon">🎯</div>
+      <h3>Zero Coupon Bonds</h3>
+      <p>Issued at discount, redeemed at face value at maturity</p>
+      <span class="type-yield">Deep Discount</span>
+    </div>
+    <div class="type-card" onclick="window.location='bonds.html?type=54ec'">
+      <div class="type-icon">💰</div>
+      <h3>Capital Gains Bonds</h3>
+      <p>Section 54EC bonds for tax saving on capital gains</p>
+      <span class="type-yield">Yield: 5.0–5.75%</span>
+    </div>
+    <div class="type-card" onclick="window.location='bonds.html?type=sgb'">
+      <div class="type-icon">🥇</div>
+      <h3>Sovereign Gold Bonds</h3>
+      <p>RBI-issued bonds linked to gold prices + 2.5% interest</p>
+      <span class="type-yield">Gold + 2.5%</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-section">
+  <div class="features-inner">
+    <div class="features-text">
+      <h2>Why Choose<br/><span class="accent">Bond Central?</span></h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="feat-icon">🔍</span>
+          <div>
+            <h4>Unified Discovery</h4>
+            <p>Single platform for all bonds — corporate, govt, PSU across all exchanges</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">📊</span>
+          <div>
+            <h4>Price Comparison</h4>
+            <p>Compare corporate bond prices with G-Secs and fixed income indices</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">🛡️</span>
+          <div>
+            <h4>SEBI Regulated</h4>
+            <p>Transparent, regulated platform backed by OBPP Association & MIIs</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feat-icon">🧮</span>
+          <div>
+            <h4>Bond Calculator</h4>
+            <p>Calculate yield, price, and returns before investing</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="features-img">
+      <div class="dashboard-preview">
+        <div class="dp-header">My Portfolio</div>
+        <div class="dp-value">₹ 4,85,000</div>
+        <div class="dp-bar"><div class="dp-bar-fill" style="width:72%"></div></div>
+        <div class="dp-stats">
+          <div><span>Returns</span><strong class="green">+11.2%</strong></div>
+          <div><span>Maturity</span><strong>Jan 2027</strong></div>
+        </div>
+        <div class="dp-bonds">
+          <div class="dp-bond-row"><span>HDFC Bond</span><span class="green">9.25%</span></div>
+          <div class="dp-bond-row"><span>NTPC PSU</span><span class="green">8.75%</span></div>
+          <div class="dp-bond-row"><span>Govt 2034</span><span class="green">7.18%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR USERS & COMPANIES -->
+<section class="section roles-section">
+  <div class="roles-grid">
+    <div class="role-card investor">
+      <div class="role-icon">👤</div>
+      <h3>For Investors</h3>
+      <ul>
+        <li>✅ Browse thousands of bonds</li>
+        <li>✅ Compare yields & ratings</li>
+        <li>✅ Track your portfolio</li>
+        <li>✅ Use bond calculator</li>
+        <li>✅ Access risk disclosures</li>
+      </ul>
+      <a href="register.html?role=investor" class="btn-primary">Join as Investor</a>
+    </div>
+    <div class="role-card company">
+      <div class="role-icon">🏢</div>
+      <h3>For Companies</h3>
+      <ul>
+        <li>✅ List your bonds</li>
+        <li>✅ Upload bond documents</li>
+        <li>✅ Reach retail investors</li>
+        <li>✅ Monitor investor interest</li>
+        <li>✅ Compliance dashboard</li>
+      </ul>
+      <a href="company.html" class="btn-outline-gold">Join as Issuer</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">⬡</span> Bond<strong>Central</strong>
+      <p>India's unified corporate bond information platform</p>
+      <p class="sebi-tag">SEBI Regulated | OBPP Association</p>
+    </div>
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <a href="bonds.html">Browse Bonds</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="company.html">For Companies</a>
+    </div>
+    <div class="footer-links">
+      <h4>Account</h4>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="#">Disclaimer</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Bond Central | Developed for Educational Purposes | OBPP Association of India</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

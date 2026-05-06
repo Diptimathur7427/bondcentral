@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Bond Central</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="dash-sidebar">
+    <div class="logo"><span class="logo-icon">⬡</span> Bond<strong style="color:var(--gold)">Central</strong></div>
+    <nav class="dash-nav">
+      <a href="dashboard.html" class="active">📊 Overview</a>
+      <a href="bonds.html">🔍 Browse Bonds</a>
+      <a href="#" onclick="showSection('portfolio')">💼 My Portfolio</a>
+      <a href="#" onclick="showSection('watchlist')">⭐ Watchlist</a>
+      <a href="calculator.html">🧮 Calculator</a>
+      <a href="#" onclick="showSection('kyc')">🪪 KYC Status</a>
+      <a href="#" onclick="showSection('transactions')">🧾 Transactions</a>
+      <a href="index.html" style="margin-top:auto;color:var(--red);">🚪 Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1>Good Morning, Investor 👋</h1>
+      <p>Here's your portfolio overview for today</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Portfolio Value</div>
+        <div class="kpi-value">₹4,85,000</div>
+        <div class="kpi-change up">▲ +₹12,400 this month</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Returns</div>
+        <div class="kpi-value">₹38,750</div>
+        <div class="kpi-change up">▲ +11.2% annualized</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Active Bonds</div>
+        <div class="kpi-value">7</div>
+        <div class="kpi-change">Across 4 categories</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Next Coupon Payment</div>
+        <div class="kpi-value">₹3,200</div>
+        <div class="kpi-change">Due: 15 June 2025</div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h3>My Portfolio</h3>
+        <div class="portfolio-item">
+          <div>
+            <div class="port-name">HDFC Bank Bond 2027</div>
+            <div class="port-type">Corporate Bond · AAA · 9.25%</div>
+          </div>
+          <div class="port-val">
+            <div class="port-amount">₹1,00,000</div>
+            <div class="port-return">+₹9,250</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div>
+            <div class="port-name">Govt. of India 2034</div>
+            <div class="port-type">G-Sec · Sovereign · 7.18%</div>
+          </div>
+          <div class="port-val">
+            <div class="port-amount">₹1,50,000</div>
+            <div class="port-return">+₹10,770</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div>
+            <div class="port-name">NTPC PSU Bond 2029</div>
+            <div class="port-type">PSU Bond · AAA · 8.75%</div>
+          </div>
+          <div class="port-val">
+            <div class="port-amount">₹80,000</div>
+            <div class="port-return">+₹7,000</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div>
+            <div class="port-name">Tata Capital NCD</div>
+            <div class="port-type">Corporate Bond · AA+ · 10.5%</div>
+          </div>
+          <div class="port-val">
+            <div class="port-amount">₹50,000</div>
+            <div class="port-return">+₹5,250</div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <div>
+            <div class="port-name">REC Ltd. Bond 2026</div>
+            <div class="port-type">PSU Bond · AAA · 7.9%</div>
+          </div>
+          <div class="port-val">
+            <div class="port-amount">₹70,000</div>
+            <div class="port-return">+₹5,530</div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="bonds.html" class="btn-primary" style="font-size:0.85rem;padding:0.6rem 1.2rem;">+ Add More Bonds</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="dash-card" style="margin-bottom:1.5rem;">
+          <h3>⭐ Watchlist</h3>
+          <div class="portfolio-item">
+            <div><div class="port-name">Bajaj Finance NCD</div><div class="port-type">10.1% · AA+</div></div>
+            <button class="invest-btn">View</button>
+          </div>
+          <div class="portfolio-item">
+            <div><div class="port-name">SGB Series XIV</div><div class="port-type">Gold + 2.5%</div></div>
+            <button class="invest-btn">View</button>
+          </div>
+          <div class="portfolio-item">
+            <div><div class="port-name">NHAI Bond 2030</div><div class="port-type">8.3% · AAA</div></div>
+            <button class="invest-btn">View</button>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <h3>🪪 KYC Status</h3>
+          <div style="display:flex;flex-direction:column;gap:0.8rem;font-size:0.85rem;">
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:var(--text-muted)">PAN Verification</span>
+              <span style="color:var(--green)">✅ Done</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:var(--text-muted)">Aadhaar Linking</span>
+              <span style="color:var(--green)">✅ Done</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:var(--text-muted)">Bank Account</span>
+              <span style="color:var(--green)">✅ Verified</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:var(--text-muted)">Demat Account</span>
+              <span style="color:var(--gold)">⏳ Pending</span>
+            </div>
+          </div>
+          <a href="#" class="btn-outline" style="display:block;margin-top:1rem;text-align:center;font-size:0.82rem;padding:0.5rem;">Complete KYC</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="main.js"></script>
+<script>
+function showSection(s) { alert('Section: ' + s + ' — connect to backend API'); }
+</script>
+</body>
+</html>

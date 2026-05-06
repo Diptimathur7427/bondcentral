@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Bonds — Bond Central</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand"><span class="logo-icon">⬡</span> Bond<strong>Central</strong></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="bonds.html" class="active">Bonds</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="company.html">For Companies</a></li>
+    <li><a href="login.html" class="btn-outline">Login</a></li>
+    <li><a href="register.html" class="btn-primary">Register</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</nav>
+
+<div class="page-hero">
+  <h1>Browse All Bonds</h1>
+  <p>5,200+ bonds listed across all exchanges — filter, compare, and invest</p>
+</div>
+
+<div class="bonds-layout">
+
+  <!-- Filters Sidebar -->
+  <aside class="filters-sidebar">
+    <div class="filter-card">
+      <h4>Bond Type</h4>
+      <div class="filter-option"><input type="checkbox" id="gov" checked/><label for="gov">Government Bonds</label></div>
+      <div class="filter-option"><input type="checkbox" id="corp" checked/><label for="corp">Corporate Bonds</label></div>
+      <div class="filter-option"><input type="checkbox" id="psu" checked/><label for="psu">PSU Bonds</label></div>
+      <div class="filter-option"><input type="checkbox" id="sgb"/><label for="sgb">Sovereign Gold Bonds</label></div>
+      <div class="filter-option"><input type="checkbox" id="zero"/><label for="zero">Zero Coupon</label></div>
+      <div class="filter-option"><input type="checkbox" id="ec54"/><label for="ec54">54EC Capital Gains</label></div>
+    </div>
+
+    <div class="filter-card">
+      <h4>Credit Rating</h4>
+      <div class="filter-option"><input type="checkbox" id="aaa" checked/><label for="aaa">AAA (Highest)</label></div>
+      <div class="filter-option"><input type="checkbox" id="aa" checked/><label for="aa">AA</label></div>
+      <div class="filter-option"><input type="checkbox" id="a_rate"/><label for="a_rate">A</label></div>
+      <div class="filter-option"><input type="checkbox" id="bbb"/><label for="bbb">BBB</label></div>
+      <div class="filter-option"><input type="checkbox" id="sov"/><label for="sov">Sovereign</label></div>
+    </div>
+
+    <div class="filter-card">
+      <h4>Yield Range (%)</h4>
+      <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-muted);margin-bottom:0.5rem;">
+        <span>5%</span><span id="yield-val">12%</span>
+      </div>
+      <input type="range" class="range-slider" min="5" max="15" value="12" id="yield-range"
+        oninput="document.getElementById('yield-val').textContent = this.value + '%'"/>
+    </div>
+
+    <div class="filter-card">
+      <h4>Maturity</h4>
+      <div class="filter-option"><input type="radio" name="mat" id="m1" checked/><label for="m1">Any</label></div>
+      <div class="filter-option"><input type="radio" name="mat" id="m2"/><label for="m2">< 1 Year</label></div>
+      <div class="filter-option"><input type="radio" name="mat" id="m3"/><label for="m3">1–3 Years</label></div>
+      <div class="filter-option"><input type="radio" name="mat" id="m4"/><label for="m4">3–5 Years</label></div>
+      <div class="filter-option"><input type="radio" name="mat" id="m5"/><label for="m5">> 5 Years</label></div>
+    </div>
+
+    <div class="filter-card">
+      <h4>Min. Investment</h4>
+      <div class="filter-option"><input type="radio" name="inv" id="inv1" checked/><label for="inv1">Any</label></div>
+      <div class="filter-option"><input type="radio" name="inv" id="inv2"/><label for="inv2">₹10,000+</label></div>
+      <div class="filter-option"><input type="radio" name="inv" id="inv3"/><label for="inv3">₹1 Lakh+</label></div>
+      <div class="filter-option"><input type="radio" name="inv" id="inv4"/><label for="inv4">₹10 Lakh+</label></div>
+    </div>
+
+    <button class="btn-primary" style="width:100%;padding:0.8rem;" onclick="applyFilters()">Apply Filters</button>
+  </aside>
+
+  <!-- Bonds Main -->
+  <main class="bonds-main">
+    <div class="bonds-toolbar">
+      <div class="search-bar">
+        <input type="text" id="bond-search" placeholder="Search by issuer, ISIN, type..." oninput="filterBonds()"/>
+        <button class="btn-primary" onclick="filterBonds()">🔍 Search</button>
+      </div>
+      <select class="sort-select" onchange="sortBonds(this.value)">
+        <option value="yield-desc">Highest Yield</option>
+        <option value="yield-asc">Lowest Yield</option>
+        <option value="rating">Best Rating</option>
+        <option value="maturity">Nearest Maturity</option>
+      </select>
+    </div>
+
+    <div class="bonds-table-wrap">
+      <table class="bonds-table" id="bonds-table">
+        <thead>
+          <tr>
+            <th>Issuer / Bond</th>
+            <th>Type</th>
+            <th>Rating</th>
+            <th>Yield (p.a.)</th>
+            <th>Maturity</th>
+            <th>Min. Invest</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="bonds-tbody">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:0.5rem;" id="pagination"></div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="logo-icon">⬡</span> Bond<strong>Central</strong><p>India's unified corporate bond information platform</p><span class="sebi-tag">SEBI Regulated | OBPP Association</span></div>
+    <div class="footer-links"><h4>Platform</h4><a href="bonds.html">Browse Bonds</a><a href="calculator.html">Calculator</a></div>
+    <div class="footer-links"><h4>Account</h4><a href="login.html">Login</a><a href="register.html">Register</a></div>
+    <div class="footer-links"><h4>Legal</h4><a href="#">Disclaimer</a><a href="#">Privacy</a></div>
+  </div>
+  <div class="footer-bottom">© 2025 Bond Central | Developed for Educational Purposes</div>
+</footer>
+
+<script src="main.js"></script>
+<script src="bonds.js"></script>
+</body>
+</html>
